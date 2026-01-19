@@ -1,4 +1,4 @@
-# Copyright © 2020 FULL NAME and contributors - MIT License
+# Copyright © 2026 Jonathan Durbin - MIT License
 # See `LICENSE.md` included in the source distribution for details.
 #
 # This script is needed to make the `class_name` scripts visible in the
