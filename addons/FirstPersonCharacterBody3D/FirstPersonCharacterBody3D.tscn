@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bpry6f7oboa0q"]
 
-[ext_resource type="Script" uid="uid://ouopvrljiaxc" path="res://common/FirstPersonCharacterBody3D/FirstPersonCharacterBody3D.gd" id="1_eo137"]
-[ext_resource type="Curve" uid="uid://d4mmth7dfhq4o" path="res://common/FirstPersonCharacterBody3D/resources/FirstPersonCharacterBody3D_accel-curve.tres" id="2_nl1b5"]
-[ext_resource type="Curve" uid="uid://crbm077emeawf" path="res://common/FirstPersonCharacterBody3D/resources/FirstPersonCharacterBody3D_decel-curve.tres" id="3_vxjsj"]
+[ext_resource type="Script" uid="uid://ouopvrljiaxc" path="res://addons/FirstPersonCharacterBody3D/FirstPersonCharacterBody3D.gd" id="1_eo137"]
+[ext_resource type="Curve" uid="uid://d4mmth7dfhq4o" path="res://addons/FirstPersonCharacterBody3D/resources/FirstPersonCharacterBody3D_accel-curve.tres" id="2_nl1b5"]
+[ext_resource type="Curve" uid="uid://crbm077emeawf" path="res://addons/FirstPersonCharacterBody3D/resources/FirstPersonCharacterBody3D_decel-curve.tres" id="3_vxjsj"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3saiw"]
 radius = 1.0
@@ -15,12 +15,8 @@ albedo_color = Color(0.733444, 0.359038, 0.421329, 1)
 radius = 1.0
 height = 4.0
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head", "camera")]
-collision_layer = 2
-collision_mask = 28
+[node name="FirstPersonCharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("head", "camera")]
 script = ExtResource("1_eo137")
-enable_headbob = true
-enable_fov_kick = true
 head = NodePath("Head")
 camera = NodePath("Head/Camera3D")
 accel_curve = ExtResource("2_nl1b5")
