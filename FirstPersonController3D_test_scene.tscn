@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://g5ored4nyjto"]
+[gd_scene load_steps=15 format=3 uid="uid://g5ored4nyjto"]
 
-[ext_resource type="PackedScene" uid="uid://bpry6f7oboa0q" path="res://addons/FirstPersonCharacterBody3D/FirstPersonCharacterBody3D.tscn" id="1_wb67t"]
-[ext_resource type="Texture2D" uid="uid://i8hynax28pxg" path="res://assets/Kenney-Prototype-Textures/texture_04.svg" id="2_s0xkt"]
-[ext_resource type="Texture2D" uid="uid://cyigldh36d6g" path="res://assets/Kenney-Prototype-Textures/texture_09.svg" id="3_0s3fj"]
+[ext_resource type="Script" uid="uid://bu40w7m7eedat" path="res://fpc3d_test_scene.gd" id="1_1641l"]
+[ext_resource type="PackedScene" uid="uid://bpry6f7oboa0q" path="res://addons/FirstPersonController3D/FirstPersonController3D.tscn" id="2_trxfk"]
+[ext_resource type="Texture2D" uid="uid://i8hynax28pxg" path="res://assets/Kenney-Prototype-Textures/texture_04.svg" id="3_se4dx"]
+[ext_resource type="Texture2D" uid="uid://cyigldh36d6g" path="res://assets/Kenney-Prototype-Textures/texture_09.svg" id="4_b3d7h"]
+[ext_resource type="Script" uid="uid://yuxh7mjmiyqv" path="res://debug_info.gd" id="5_ets0j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d8jfb"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -20,7 +22,7 @@ glow_enabled = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lpb1e"]
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = ExtResource("2_s0xkt")
+albedo_texture = ExtResource("3_se4dx")
 texture_filter = 4
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_cc8sd"]
@@ -31,7 +33,7 @@ size = Vector2(10, 10)
 data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_su4tu"]
-albedo_texture = ExtResource("3_0s3fj")
+albedo_texture = ExtResource("4_b3d7h")
 
 [sub_resource type="BoxMesh" id="BoxMesh_0cqed"]
 material = SubResource("StandardMaterial3D_su4tu")
@@ -41,6 +43,7 @@ size = Vector3(10, 1, 10)
 data = PackedVector3Array(-4.6575, 0.6225, 5.4325, 4.6575, 0.6225, 5.4325, -4.6575, -0.6225, 5.4325, 4.6575, 0.6225, 5.4325, 4.6575, -0.6225, 5.4325, -4.6575, -0.6225, 5.4325, 4.6575, 0.6225, -5.4325, -4.6575, 0.6225, -5.4325, 4.6575, -0.6225, -5.4325, -4.6575, 0.6225, -5.4325, -4.6575, -0.6225, -5.4325, 4.6575, -0.6225, -5.4325, 4.6575, 0.6225, 5.4325, 4.6575, 0.6225, -5.4325, 4.6575, -0.6225, 5.4325, 4.6575, 0.6225, -5.4325, 4.6575, -0.6225, -5.4325, 4.6575, -0.6225, 5.4325, -4.6575, 0.6225, -5.4325, -4.6575, 0.6225, 5.4325, -4.6575, -0.6225, -5.4325, -4.6575, 0.6225, 5.4325, -4.6575, -0.6225, 5.4325, -4.6575, -0.6225, -5.4325, 4.6575, 0.6225, 5.4325, -4.6575, 0.6225, 5.4325, 4.6575, 0.6225, -5.4325, -4.6575, 0.6225, 5.4325, -4.6575, 0.6225, -5.4325, 4.6575, 0.6225, -5.4325, -4.6575, -0.6225, 5.4325, 4.6575, -0.6225, 5.4325, -4.6575, -0.6225, -5.4325, 4.6575, -0.6225, 5.4325, 4.6575, -0.6225, -5.4325, -4.6575, -0.6225, -5.4325)
 
 [node name="PlayerTestLevel" type="Node3D"]
+script = ExtResource("1_1641l")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_th2fm")
@@ -50,7 +53,7 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 directional_shadow_max_distance = 1.0
 
-[node name="Player" parent="." instance=ExtResource("1_wb67t")]
+[node name="Player" parent="." instance=ExtResource("2_trxfk")]
 transform = Transform3D(-0.8420666, 0, -0.5393736, 0, 1, 0, 0.5393736, 0, -0.8420666, -4.8435526, 0, 24.828426)
 
 [node name="GroundPlanes" type="Node3D" parent="."]
@@ -694,3 +697,10 @@ visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Slopes/Slope8/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_i6ffl")
+
+[node name="DebugInfo" type="Label" parent="."]
+offset_left = 16.0
+offset_top = 11.0
+offset_right = 224.0
+offset_bottom = 355.0
+script = ExtResource("5_ets0j")

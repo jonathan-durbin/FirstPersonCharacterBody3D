@@ -6,7 +6,7 @@ extends CharacterBody3D
 ## Works pretty well on sloped surfaces - testing has not revealed any issues so far.
 
 
-@export_category("Features")
+@export_group("Features")
 @export var enable_sprint: bool = true
 @export var enable_crouch: bool = true
 # Slight up and down motion while moving
@@ -15,12 +15,12 @@ extends CharacterBody3D
 @export var enable_variable_jump_height: bool = true
 
 
-@export_category("Nodes")
+@export_group("Nodes")
 @export var head: Node3D
 @export var camera: Camera3D
 
 
-@export_category("Inputs")
+@export_group("Inputs")
 @export var input_move_left: StringName = &"move_left"
 @export var input_move_right: StringName = &"move_right"
 @export var input_move_forward: StringName = &"move_forward"
@@ -30,14 +30,14 @@ extends CharacterBody3D
 @export var input_crouch: StringName = &"crouch"
 
 
-@export_category("Look")
+@export_group("Look")
 @export var mouse_sensitivity: float = 0.1
 @export var invert_mouse_y: bool = false
 @export var min_pitch_degrees: float = -89.0
 @export var max_pitch_degrees: float = 89.0
 
 
-@export_category("Speeds")
+@export_group("Speeds")
 @export_range(0.1, 10.0, 0.01) var walk_speed: float = 5.0
 @export_range(0.0, 5.0, 0.01) var sprint_multiplier: float = 1.5
 @export_range(0.0, 5.0, 0.01) var crouch_multiplier: float = 0.6
@@ -47,7 +47,7 @@ extends CharacterBody3D
 @export_range(0.0, 1.0, 0.01) var steering_boost_start_dot: float = 0.95
 
 
-@export_category("Acceleration")
+@export_group("Acceleration")
 @export var motion_smoothing: bool = true
 @export var remove_opposing_velocity_on_ground: bool = false
 
@@ -57,25 +57,26 @@ extends CharacterBody3D
 @export var air_decel: float = 7.0     # m/s^2 (pre-scale)
 @export_range(0.0, 1.0, 0.01) var air_control: float = 0.5
 
-@export_category("Movement Curves")
+@export_group("Movement Curves")
 @export var accel_curve: Curve
 @export var decel_curve: Curve
 @export_range(0.0, 3.0, 0.01) var curve_multiplier_min: float = 0.0
 @export_range(0.0, 3.0, 0.01) var curve_multiplier_max: float = 2.0
 
 
-@export_category("Jump")
+@export_group("Jump")
 @export var jump_velocity: float = 5.0
 @export var gravity_up_multiplier: float = 0.9
 @export var gravity_down_multiplier: float = 1.1
 @export var jump_cut_multiplier: float = 5.0
 
 
+@export_group("Headbob")
 @export_category("Headbob")
 @export var headbob_amplitude: float = 0.04
 @export var headbob_frequency: float = 8.0
 
-@export_category("FOV Kick")
+@export_group("FOV Kick")
 @export var fov_walk: float = 75.0
 @export var fov_sprint: float = 82.0
 @export var fov_lerp_speed: float = 8.0
@@ -115,7 +116,7 @@ func _ready() -> void:
 		_pitch = head.rotation.x
 		_head_base_local_pos = head.position
 	else:
-		push_error("FirstPersonController: Head is not defined!")
+		push_error("FirstPersonController3D: Head is not defined!")
 
 	_was_on_floor = is_on_floor()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -124,7 +125,7 @@ func _ready() -> void:
 		if enable_fov_kick:
 			camera.fov = fov_walk
 	else:
-		push_error("FirstPersonController: Camera is not defined!")
+		push_error("FirstPersonController3D: Camera is not defined!")
 
 
 func _physics_process(delta: float) -> void:

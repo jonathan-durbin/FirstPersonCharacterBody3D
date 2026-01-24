@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="FirstPersonCharacterBody3D"
+config/name="FirstPersonController3D"
 run/main_scene="uid://g5ored4nyjto"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
