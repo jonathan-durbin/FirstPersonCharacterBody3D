@@ -72,14 +72,23 @@ extends CharacterBody3D
 
 
 @export_group("Headbob")
-@export_category("Headbob")
-@export var headbob_amplitude: float = 0.04
-@export var headbob_frequency: float = 8.0
+@export var headbob_amplitude: float = 0.08
+## How frequently the head bobs. 
+## May need to be adjusted according to the sprinting speed.
+@export var headbob_frequency: float = 15.0
+## Minimum speed before bob starts
+@export var headbob_min_speed: float = 0.1
 
 @export_group("FOV Kick")
 @export var fov_walk: float = 75.0
 @export var fov_sprint: float = 82.0
 @export var fov_lerp_speed: float = 8.0
+
+@export_group("Footsteps")
+## Distance per step. Lower corresponds with more frequent steps.
+@export_range(0.1, 3.0) var step_length: float = 1.0
+## Minimum speed before steps start
+@export var steps_min_speed: float = 0.6
 
 
 signal jumped
@@ -87,6 +96,7 @@ signal landed(fall_speed: float)
 signal moved(speed_xz: float)
 signal sprint_state_changed(is_sprinting: bool)
 signal crouch_state_changed(is_crouching: bool)
+signal step_landed(foot: int) # 0 is left, 1 is right
 
 
 const EPS: float = 1e-6
@@ -105,8 +115,14 @@ var _prev_crouching: bool = false
 var _was_on_floor: bool = true
 var _last_fall_speed: float = 0.0
 
-var _head_base_local_pos: Vector3
-var _bob_phase: float = 0.0
+## Where the position of the head is by default. Shouldn't change after setting.
+var _head_base_local_pos: Vector3:
+	set(value):
+		return
+var _headbob_phase: float = 0.0
+
+var _step_phase: float = 0.0
+var _step_foot: int = 0
 
 
 func _ready() -> void:
@@ -326,6 +342,8 @@ func _post_move_events() -> void:
 
 
 func _apply_extras(delta: float) -> void:
+	_update_steps(delta)
+	
 	if enable_headbob:
 		_apply_headbob(delta)
 
@@ -337,13 +355,34 @@ func _apply_extras(delta: float) -> void:
 func _apply_headbob(delta: float) -> void:
 	var speed_xz: float = Vector3(velocity.x, 0.0, velocity.z).length()
 
-	if is_on_floor() and speed_xz > 0.1:
-		# Inverse lerp here controls how pronounced the bob is by scaling it with the current speed
-		_bob_phase += headbob_frequency * inverse_lerp(0.0, walk_speed * sprint_multiplier, speed_xz) * delta
-		var bob: float = sin(_bob_phase) * headbob_amplitude
+	if is_on_floor() and speed_xz > headbob_min_speed:
+		# How close we are to max speed. Clamped to avoid unreasonable values
+		var speed_ratio: float = clampf(
+			inverse_lerp(0.0, walk_speed * sprint_multiplier, speed_xz), 
+			0.0, 1.0
+		)
+		_headbob_phase += headbob_frequency * speed_ratio * delta
+		var bob: float = sin(_headbob_phase) * headbob_amplitude
 		head.position = _head_base_local_pos + Vector3(0.0, bob, 0.0)
 	else:
-		_bob_phase = 0.0
+		# Reset and smoothly move back to the base position
+		_headbob_phase = 0.0
 		head.position = head.position.lerp(_head_base_local_pos, 10.0 * delta)
 
+
+func _update_steps(delta: float) -> void:
+	if not is_on_floor():
+		return
+	
+	var speed_xz: float = Vector3(velocity.x, 0.0, velocity.z).length()
+	if speed_xz < steps_min_speed:
+		return
+	
+	_step_phase += (speed_xz * delta) / step_length
+	
+	while _step_phase >= 1.0:
+		_step_phase -= 1.0
+		step_landed.emit(_step_foot)
+		_step_foot = 1 - _step_foot
+		
 #endregion
