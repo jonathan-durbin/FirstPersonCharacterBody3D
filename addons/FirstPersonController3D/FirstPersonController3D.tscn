@@ -10,16 +10,12 @@ point_count = 2
 _data = [Vector2(0, 0.20334268), 0.0, 0.0, 0, 0, Vector2(1, 0.8189416), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_3saiw"]
-radius = 1.0
-height = 4.0
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i8axt"]
 albedo_color = Color(0.733444, 0.359038, 0.421329, 1)
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3saiw"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7e7s5"]
-radius = 1.0
-height = 4.0
 
 [node name="FirstPersonCharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("head", "camera")]
 script = ExtResource("1_eo137")
@@ -29,15 +25,15 @@ accel_curve = SubResource("Curve_nr0dy")
 decel_curve = SubResource("Curve_cm5id")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_i8axt")
 mesh = SubResource("CapsuleMesh_3saiw")
-surface_material_override/0 = SubResource("StandardMaterial3D_i8axt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7e7s5")
 
 [node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.99721, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6450157, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
