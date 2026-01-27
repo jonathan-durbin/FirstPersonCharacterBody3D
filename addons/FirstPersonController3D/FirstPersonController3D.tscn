@@ -21,8 +21,11 @@ albedo_color = Color(0.733444, 0.359038, 0.421329, 1)
 script = ExtResource("1_eo137")
 head = NodePath("Head")
 camera = NodePath("Head/Camera3D")
+walk_speed = 2.15
 accel_curve = SubResource("Curve_nr0dy")
 decel_curve = SubResource("Curve_cm5id")
+headbob_amplitude = 0.05
+step_length = 0.725
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

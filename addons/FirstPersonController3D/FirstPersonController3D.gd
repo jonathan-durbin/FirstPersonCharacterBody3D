@@ -7,8 +7,10 @@ extends CharacterBody3D
 
 
 signal jumped
+signal in_air
 signal landed(fall_speed: float)
-signal moved(speed_xz: float)
+## Emitted every physics tick. Player velocity in the XZ plane.
+signal moved(velocity_xz)
 signal sprint_state_changed(is_sprinting: bool)
 signal crouch_state_changed(is_crouching: bool)
 ## 0 is left, 1 is right
@@ -121,6 +123,8 @@ signal step_landed(foot: int)
 @export_group("Headbob")
 ## Maximum headbob vertical offset in meters.
 @export var headbob_amplitude: float = 0.08
+## Phase offset applied to headbob. Used to slightly offset when footsteps happen and when the head moves up/down.
+@export_range(-0.5, 0.5, 0.0001) var headbob_phase_offset: float = 0.0
 ## Minimum horizontal speed before bob starts.
 @export var headbob_min_speed: float = 0.1
 
@@ -199,6 +203,10 @@ func _physics_process(delta: float) -> void:
 	_apply_horizontal(delta)
 
 	move_and_slide()
+
+	# Emit current horizontal velocity every physics tick (after move_and_slide())
+	var xz: Vector3 = Vector3(velocity.x, 0.0, velocity.z)
+	moved.emit(xz)
 
 	_post_move_events(delta)
 
@@ -331,8 +339,6 @@ func _apply_horizontal(delta: float) -> void:
 	velocity.x = current_xz.x
 	velocity.z = current_xz.z
 
-	moved.emit(current_xz.length())
-
 
 ## Small velocity tweak to improve responsiveness.
 ## If on the ground and currently moving opposite the desired direction, removes the opposing velocity component.
@@ -389,6 +395,9 @@ func _get_rate_from_curve(current_xz: Vector3, target_xz: Vector3, max_speed: fl
 ## Anything that runs after movement happens.
 ## Emits landing/sprinting/crouching state changes, updates step phase, applies headbob, and applies the FOV "kick".
 func _post_move_events(delta: float) -> void:
+	if _was_on_floor and not is_on_floor():
+		in_air.emit()
+
 	if is_on_floor() and not _was_on_floor:
 		landed.emit(_last_fall_speed)
 
@@ -402,7 +411,7 @@ func _post_move_events(delta: float) -> void:
 
 	_was_on_floor = is_on_floor()
 
-	_advance_stride_phase(delta)
+	_update_footsteps(delta)
 
 	if enable_headbob:
 		_apply_headbob(delta)
@@ -422,7 +431,9 @@ func _apply_headbob(delta: float) -> void:
 		and speed_xz > headbob_min_speed
 		and speed_xz > step_min_speed
 	):
-		var bob_y: float = -abs(cos(_stride_phase * TAU)) * headbob_amplitude
+		var phase: float = fmod(_stride_phase + headbob_phase_offset, 1.0)
+		var bob_y: float = -abs(cos(phase * TAU)) * headbob_amplitude
+		#var bob_y: float = -cos(phase * TAU) * headbob_amplitude
 		head.position = _head_base_local_pos + Vector3(0.0, bob_y, 0.0)
 	else:
 		# Smoothly return to the base position when not stepping
@@ -431,7 +442,7 @@ func _apply_headbob(delta: float) -> void:
 
 ## Increases stride phase based on horizontal speed and defined step length.
 ## Emits step_landed at specific "marks" for left/right footsteps.
-func _advance_stride_phase(delta: float) -> void:
+func _update_footsteps(delta: float) -> void:
 	if not is_on_floor():
 		return
 
@@ -445,6 +456,7 @@ func _advance_stride_phase(delta: float) -> void:
 	var prev_phase: float = _stride_phase
 
 	# Phase increases by distance traveled / stride length
+	#_stride_phase = fmod(_stride_phase + (speed_xz * delta) / stride_length * maxf(headbob_frequency, 1e-4), 1.0)
 	_stride_phase = fmod(_stride_phase + (speed_xz * delta) / stride_length, 1.0)
 
 	# Footsteps happen twice per stride
