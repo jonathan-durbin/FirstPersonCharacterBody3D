@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://g5ored4nyjto"]
+[gd_scene load_steps=22 format=3 uid="uid://g5ored4nyjto"]
 
 [ext_resource type="Script" uid="uid://bu40w7m7eedat" path="res://testing/fpc3d_test_scene.gd" id="1_1641l"]
 [ext_resource type="PackedScene" uid="uid://bpry6f7oboa0q" path="res://addons/FirstPersonController3D/FirstPersonController3D.tscn" id="2_trxfk"]
@@ -42,6 +42,80 @@ size = Vector3(10, 1, 10)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_i6ffl"]
 data = PackedVector3Array(-4.6575, 0.6225, 5.4325, 4.6575, 0.6225, 5.4325, -4.6575, -0.6225, 5.4325, 4.6575, 0.6225, 5.4325, 4.6575, -0.6225, 5.4325, -4.6575, -0.6225, 5.4325, 4.6575, 0.6225, -5.4325, -4.6575, 0.6225, -5.4325, 4.6575, -0.6225, -5.4325, -4.6575, 0.6225, -5.4325, -4.6575, -0.6225, -5.4325, 4.6575, -0.6225, -5.4325, 4.6575, 0.6225, 5.4325, 4.6575, 0.6225, -5.4325, 4.6575, -0.6225, 5.4325, 4.6575, 0.6225, -5.4325, 4.6575, -0.6225, -5.4325, 4.6575, -0.6225, 5.4325, -4.6575, 0.6225, -5.4325, -4.6575, 0.6225, 5.4325, -4.6575, -0.6225, -5.4325, -4.6575, 0.6225, 5.4325, -4.6575, -0.6225, 5.4325, -4.6575, -0.6225, -5.4325, 4.6575, 0.6225, 5.4325, -4.6575, 0.6225, 5.4325, 4.6575, 0.6225, -5.4325, -4.6575, 0.6225, 5.4325, -4.6575, 0.6225, -5.4325, 4.6575, 0.6225, -5.4325, -4.6575, -0.6225, 5.4325, 4.6575, -0.6225, 5.4325, -4.6575, -0.6225, -5.4325, 4.6575, -0.6225, 5.4325, 4.6575, -0.6225, -5.4325, -4.6575, -0.6225, -5.4325)
 
+[sub_resource type="Animation" id="Animation_fk3as"]
+resource_name = "default"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MovingPlatform:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.6487651, 0.418569, 20.97839), Vector3(12.724, 0.419, 20.978), Vector3(0.6487651, 0.418569, 20.97839)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MovingPlatform2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.4333334, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.736, -2.111, 18.726), Vector3(0.736, 2.27, 18.726), Vector3(0.736, -2.111, 18.726)]
+}
+
+[sub_resource type="Animation" id="Animation_tspct"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MovingPlatform:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.6487651, 0.418569, 20.97839)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MovingPlatform2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.73592246, 0.418569, 18.725616)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mvbx1"]
+_data = {
+&"RESET": SubResource("Animation_tspct"),
+&"default": SubResource("Animation_fk3as")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5tcdg"]
+size = Vector3(1.935, 0.14, 1.67)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mesmo"]
+size = Vector3(1.935, 0.14, 1.67)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fk3as"]
+size = Vector3(1.935, 4.23, 1.67)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tspct"]
+size = Vector3(1.935, 4.23, 1.67)
+
 [node name="PlayerTestLevel" type="Node3D"]
 script = ExtResource("1_1641l")
 
@@ -52,6 +126,27 @@ environment = SubResource("Environment_th2fm")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 directional_shadow_max_distance = 1.0
+
+[node name="DebugInfo" type="Label" parent="."]
+offset_left = 16.0
+offset_top = 11.0
+offset_right = 224.0
+offset_bottom = 355.0
+script = ExtResource("5_ets0j")
+
+[node name="LeftFoot" type="Panel" parent="DebugInfo"]
+layout_mode = 0
+offset_left = 347.0
+offset_top = 556.0
+offset_right = 387.0
+offset_bottom = 596.0
+
+[node name="RightFoot" type="Panel" parent="DebugInfo"]
+layout_mode = 0
+offset_left = 696.9
+offset_top = 556.0
+offset_right = 736.8999
+offset_bottom = 596.0
 
 [node name="Player" parent="." instance=ExtResource("2_trxfk")]
 transform = Transform3D(-0.8420666, 0, -0.5393736, 0, 1, 0, 0.5393736, 0, -0.8420666, -4.8435526, 0, 24.828426)
@@ -698,9 +793,28 @@ visible = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Slopes/Slope8/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_i6ffl")
 
-[node name="DebugInfo" type="Label" parent="."]
-offset_left = 16.0
-offset_top = 11.0
-offset_right = 224.0
-offset_bottom = 355.0
-script = ExtResource("5_ets0j")
+[node name="MovingPlatforms" type="Node3D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MovingPlatforms"]
+libraries = {
+&"": SubResource("AnimationLibrary_mvbx1")
+}
+autoplay = "default"
+
+[node name="MovingPlatform" type="AnimatableBody3D" parent="MovingPlatforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6487651, 0.418569, 20.97839)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MovingPlatforms/MovingPlatform"]
+shape = SubResource("BoxShape3D_5tcdg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MovingPlatforms/MovingPlatform"]
+mesh = SubResource("BoxMesh_mesmo")
+
+[node name="MovingPlatform2" type="AnimatableBody3D" parent="MovingPlatforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.73592246, 0.418569, 18.725616)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MovingPlatforms/MovingPlatform2"]
+shape = SubResource("BoxShape3D_fk3as")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MovingPlatforms/MovingPlatform2"]
+mesh = SubResource("BoxMesh_tspct")
