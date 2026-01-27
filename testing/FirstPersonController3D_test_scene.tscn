@@ -1,10 +1,10 @@
 [gd_scene load_steps=15 format=3 uid="uid://g5ored4nyjto"]
 
-[ext_resource type="Script" uid="uid://bu40w7m7eedat" path="res://fpc3d_test_scene.gd" id="1_1641l"]
+[ext_resource type="Script" uid="uid://bu40w7m7eedat" path="res://testing/fpc3d_test_scene.gd" id="1_1641l"]
 [ext_resource type="PackedScene" uid="uid://bpry6f7oboa0q" path="res://addons/FirstPersonController3D/FirstPersonController3D.tscn" id="2_trxfk"]
 [ext_resource type="Texture2D" uid="uid://i8hynax28pxg" path="res://assets/Kenney-Prototype-Textures/texture_04.svg" id="3_se4dx"]
 [ext_resource type="Texture2D" uid="uid://cyigldh36d6g" path="res://assets/Kenney-Prototype-Textures/texture_09.svg" id="4_b3d7h"]
-[ext_resource type="Script" uid="uid://yuxh7mjmiyqv" path="res://debug_info.gd" id="5_ets0j"]
+[ext_resource type="Script" uid="uid://yuxh7mjmiyqv" path="res://testing/debug_info.gd" id="5_ets0j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d8jfb"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
