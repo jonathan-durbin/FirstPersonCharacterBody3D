@@ -15,14 +15,12 @@ about these few guidelines:
 
 This add-on aims to:
 
-- DESIGN_GOAL_1
-- DESIGN_GOAL_2
-- ...
+- Provide a simple drag-and-drop first-person character scene.
+- Support the typical needs of a first-person controller.
 
 ## Non-goals
 
 For technical or simplicity reasons, this add-on has no plans to:
 
-- NON_GOAL_1
-- NON_GOAL_2
-- ...
+- Develop every single functionality that a first-person controller might use. 
+	- No plans for stairs, climbing, parkour, or any advanced mechanics. 

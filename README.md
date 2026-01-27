@@ -1,29 +1,16 @@
-# ADDON_NAME
+# FirstPersonController3D
 
-ADDON_DESCRIPTION
-
-This repository only contains the add-on. See
-[USER/REPOSITORY-demo](https://github.com/USER/REPOSITORY-demo)
-for the demonstration project.
+A simple first-person CharacterBody3D controller script/scene. 
 
 ## Features
 
-- ADDON_FEATURE_1
-- ADDON_FEATURE_2
-- ...
+- Sprinting
+- Crouching
+- Headbob
+- FOV scaling (into and out of sprinting)
+- Variable jump height
 
 ## Installation
-
-### Using the Asset Library
-
-- Open the Godot editor.
-- Navigate to the **AssetLib** tab at the top of the editor and search for
-  "ADDON_NAME".
-- Install the
-  [*ADDON_NAME*](https://godotengine.org/asset-library/asset/ASSETLIB_ID)
-  plugin. Keep all files checked during installation.
-- In the editor, open **Project > Project Settings**, go to **Plugins**
-  and enable the **ADDON_NAME** plugin.
 
 ### Manual installation
 
@@ -33,24 +20,25 @@ following its `master` branch.
 - Clone this Git repository:
 
 ```bash
-git clone https://github.com/USER/REPOSITORY.git
+git clone https://github.com/jonathan-durbin/FirstPersonController3D.git
 ```
 
 Alternatively, you can
-[download a ZIP archive](https://github.com/USER/REPOSITORY/archive/master.zip)
+[download a ZIP archive](https://github.com/jonathan-durbin/FirstPersonController3D/archive/master.zip)
 if you do not have Git installed.
 
 - Move the `addons/` folder to your project folder.
 - In the editor, open **Project > Project Settings**, go to **Plugins**
-  and enable the **ADDON_NAME** plugin.
+  and enable the **FirstPersonController3D** plugin.
 
 ## Usage
 
-USAGE
+Simply drag and drop `FirstPersonController3D.tscn` into your scene. Ensure that
+ it's configured correctly (specifically, inputs).
 
 ## License
 
-Copyright © 2020 FULL NAME and contributors
+Copyright © 2026 Jonathan Durbin and contributors
 
 Unless otherwise specified, files in this repository are licensed under the
 MIT license. See [LICENSE.md](LICENSE.md) for more information.
