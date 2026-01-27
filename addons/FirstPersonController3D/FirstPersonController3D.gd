@@ -116,9 +116,7 @@ var _was_on_floor: bool = true
 var _last_fall_speed: float = 0.0
 
 ## Where the position of the head is by default. Shouldn't change after setting.
-var _head_base_local_pos: Vector3:
-	set(value):
-		return
+var _head_base_local_pos: Vector3
 var _headbob_phase: float = 0.0
 
 var _step_phase: float = 0.0

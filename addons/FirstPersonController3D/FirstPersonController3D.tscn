@@ -1,8 +1,14 @@
 [gd_scene load_steps=7 format=3 uid="uid://bpry6f7oboa0q"]
 
 [ext_resource type="Script" uid="uid://ouopvrljiaxc" path="res://addons/FirstPersonController3D/FirstPersonController3D.gd" id="1_eo137"]
-[ext_resource type="Curve" uid="uid://d4mmth7dfhq4o" path="res://addons/FirstPersonController3D/resources/FPC3D_accel-curve.tres" id="2_nl1b5"]
-[ext_resource type="Curve" uid="uid://crbm077emeawf" path="res://addons/FirstPersonController3D/resources/FPC3D_decel-curve.tres" id="3_vxjsj"]
+
+[sub_resource type="Curve" id="Curve_nr0dy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.31197774), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_cm5id"]
+_data = [Vector2(0, 0.20334268), 0.0, 0.0, 0, 0, Vector2(1, 0.8189416), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3saiw"]
 radius = 1.0
@@ -19,8 +25,8 @@ height = 4.0
 script = ExtResource("1_eo137")
 head = NodePath("Head")
 camera = NodePath("Head/Camera3D")
-accel_curve = ExtResource("2_nl1b5")
-decel_curve = ExtResource("3_vxjsj")
+accel_curve = SubResource("Curve_nr0dy")
+decel_curve = SubResource("Curve_cm5id")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
